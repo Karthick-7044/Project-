@@ -13,11 +13,11 @@ export default function EditStudent(){
     console.log(studentid, "ID")
     //const [studentData,setStudentData]=useState({})
     useEffect(()=>{
-        fetch(`https://68676ec4e3fefb261edea2f1.mockapi.io/createstudent/${studentid}`)
+        fetch("https://crud-ops-ten.vercel.app/view/"+studentid)
         .then((res)=>res.json())
         
         .then((data)=>{
-            setId(data.id)
+            setId(data._id)
             setName(data.name)
             setPlace(data.place)
             setPhone(data.phone)
@@ -29,7 +29,7 @@ export default function EditStudent(){
         e.preventDefault();
         const studentData={name,place,phone};
         
-        fetch("https://68676ec4e3fefb261edea2f1.mockapi.io/createstudent/"+studentid,{
+        fetch("https://crud-ops-ten.vercel.app/edit/"+studentid,{
             method:'PUT',
             headers:{
                 "content-type":"application/json"

@@ -12,18 +12,21 @@ export default function CreateStudent(){
         e.preventDefault();
         const studentData={name,place,phone};
         console.log(studentData, "all");
-        fetch("https://68676ec4e3fefb261edea2f1.mockapi.io/createstudent",{
+        fetch("https://crud-ops-ten.vercel.app/create",{
             method:'POST',
             headers:{
                 "content-type":"application/json"
         },
             body:JSON.stringify(studentData)
          })
+         .then((a)=>a.json())
         .then((res)=>{
-            alert("Student data saved successfully");
-            navigate("/")
-
+            // console.log(res);
+            alert(`${res.message}`);
+        navigate("/")
         })
+        
+       
         .catch((err)=>console.log(err.message))
    
     }

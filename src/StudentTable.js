@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function StudentTable() {
     const [read,setRead]=useState([]);
     useEffect(() => {
-        fetch('https://68676ec4e3fefb261edea2f1.mockapi.io/createstudent')
+        fetch('https://crud-ops-ten.vercel.app/read')
         .then((res) => res.json())
         .then((data) => setRead(data))
         .catch((err) => console.log(err.message))
@@ -14,6 +14,7 @@ export default function StudentTable() {
     console.log(read);
     const navigate=useNavigate();
     const DisplayDetails=(id)=>{
+
         navigate("/student/view/"+id);
     }
     const EditDetails=(id)=>{
@@ -21,13 +22,14 @@ export default function StudentTable() {
 
     }
     const RemoveDetails=(id)=>{
-        fetch("https://68676ec4e3fefb261edea2f1.mockapi.io/createstudent/"+id,{
+        console.log(id);
+        fetch("https://crud-ops-ten.vercel.app/delete/"+id,{
             method:'DELETE',
            
          })
         .then((res)=>{
             alert("Student data removed successfully");
-            navigate("/")
+            window.location.reload()
 
         })
         .catch((err)=>console.log(err.message))
@@ -52,14 +54,14 @@ export default function StudentTable() {
                             read.map((view,index)=>{
                                 return(
                                 <tr key={index}>
-                            <td>{view.id}</td>
+                            <td>{index+1}</td>
                             <td>{view.name}</td>
                             <td>{view.place}</td>
                             <td>{view.phone}</td>
                             <td>
-                                <button onClick={()=>DisplayDetails(view.id)} className="btn btn-info">View</button>
-                                <button onClick={()=>EditDetails(view.id)} className="btn btn-primary">Edit</button>
-                                <button onClick={()=>{RemoveDetails(view.id)}} className="btn btn-danger">Delete</button>
+                                <button onClick={()=>DisplayDetails(view._id)} className="btn btn-info">View</button>
+                                <button onClick={()=>EditDetails(view._id)} className="btn btn-primary">Edit</button>
+                                <button onClick={()=>{RemoveDetails(view._id)}} className="btn btn-danger">Delete</button>
                             </td>
                         </tr>)
                             })
